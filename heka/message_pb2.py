@@ -307,19 +307,19 @@ DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
 class Header(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _HEADER
-  
+
   # @@protoc_insertion_point(class_scope:message.Header)
 
 class Field(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _FIELD
-  
+
   # @@protoc_insertion_point(class_scope:message.Field)
 
 class Message(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _MESSAGE
-  
+
   # @@protoc_insertion_point(class_scope:message.Message)
 
 # @@protoc_insertion_point(module_scope)

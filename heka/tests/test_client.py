@@ -75,7 +75,7 @@ class TestHekaClient(object):
 
     def compute_timestamp(self):
         """
-        These should be nanoseconds 
+        These should be nanoseconds
         """
         return int(time.time() * 1000000000)
 

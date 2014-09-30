@@ -27,8 +27,7 @@ from struct import pack
 import hmac
 import logging
 
-
-HmacHashFunc = Header.HmacHashFunction
+HmacHashFunc = Header.hmac_hash_function
 
 HASHNAME_TO_FUNC = {'SHA1': sha1, 'MD5': md5}
 

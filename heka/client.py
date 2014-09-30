@@ -25,8 +25,10 @@ import traceback
 import types
 import uuid
 import datetime
+import collections
 
 from heka.message_pb2 import Message, Field
+
 
 class SEVERITY:
     """Put a namespace around RFC 3164 syslog messages"""
@@ -116,7 +118,7 @@ class HekaClient(object):
 
     def __init__(self, stream, logger, severity=6,
                  disabled_timers=None, filters=None,
-                 encoder='heka.encoders.ProtobufEncoder', 
+                 encoder='heka.encoders.ProtobufEncoder',
                  hmc=None):
         """Create a HekaClient
 
@@ -138,7 +140,6 @@ class HekaClient(object):
         :param hmc : A hashmac function
 
         """
-
 
         self.setup(stream, encoder, hmc, logger, severity, disabled_timers, filters)
 
@@ -269,7 +270,6 @@ class HekaClient(object):
         msg.uuid = uuid.uuid5(uuid.NAMESPACE_OID, str(msg)).bytes
 
         self.send_message(msg)
-
 
     def timer(self, name, logger=None, severity=None, fields=None, rate=1.0):
         """Return a timer object that can be used as a context manager
@@ -414,6 +414,25 @@ class HekaClient(object):
         """Log a CRITICAL level message"""
         self._oldstyle(SEVERITY.CRITICAL, msg, *args, **kwargs)
 
+    def _set_field_type_and_return_list(self, field, value):
+            if value is None:
+                raise ValueError("None is not allowed for field values.  [%s]" % field.name)
+            elif isinstance(value, int):
+                field.value_type = Field.INTEGER
+                field_list = field.value_integer
+            elif isinstance(value, float):
+                field.value_type = Field.DOUBLE
+                field_list = field.value_double
+            elif isinstance(value, bool):
+                field.value_type = Field.BOOL
+                field_list = field.value_bool
+            elif isinstance(value, basestring):
+                field.value_type = Field.STRING
+                field_list = field.value_string
+            else:
+                raise ValueError("Unexpected value type : [%s][%s]" % (type(value), value))
+            return field_list
+
     def _flatten_fields(self, msg, field_map, prefix=None):
         for k, v in field_map.items():
             f = msg.fields.add()
@@ -425,22 +444,24 @@ class HekaClient(object):
             f.name = full_name
             f.representation = ""
 
-            if v is None:
-                raise ValueError("None is not allowed for field values.  [%s]" % full_name)
-            elif isinstance(v, types.IntType):
-                f.value_type = Field.INTEGER
-                f.value_integer.append(v)
-            elif isinstance(v, types.FloatType):
-                f.value_type = Field.DOUBLE
-                f.value_double.append(v)
-            elif isinstance(v, types.BooleanType):
-                f.value_type = Field.BOOL
-                f.value_bool.append(bool(v))
-            elif isinstance(v, basestring):
-                f.value_type = Field.STRING
-                f.value_string.append(v)
-            elif isinstance(v, types.DictType):
+            if isinstance(v, collections.Mapping):
                 msg.fields.remove(f)
                 self._flatten_fields(msg, v, prefix=full_name)
+
+            elif isinstance(v, collections.Iterable) and not isinstance(v, basestring):
+                values = iter(v)
+                try:
+                    first_value = values.next()
+                except StopIteration:
+                    first_value = None
+
+                field_list = self._set_field_type_and_return_list(f, first_value)
+                field_list.append(first_value)
+
+                for value in values:
+                    if not isinstance(value, type(first_value)):
+                        raise ValueError("Multiple values in the same field cannot be of different types.  [%s]" % f.name)
+                    field_list.append(value)
             else:
-                raise ValueError("Unexpected value type : [%s][%s]" % (type(v), v))
+                field_list = self._set_field_type_and_return_list(f, v)
+                field_list.append(v)

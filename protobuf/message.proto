@@ -30,7 +30,7 @@ message Field {
   repeated double       value_double    = 7 [packed=true];
   repeated bool         value_bool      = 8 [packed=true];
 }
-  
+
 message Message {
   required bytes    uuid        = 1;
   required int64    timestamp   = 2; // nanoseconds since UNIX epoch
