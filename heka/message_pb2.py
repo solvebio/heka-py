@@ -11,7 +11,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = descriptor.FileDescriptor(
   name='message.proto',
   package='message',
-  serialized_pb='\n\rmessage.proto\x12\x07message\"\xc7\x01\n\x06Header\x12\x16\n\x0emessage_length\x18\x01 \x02(\r\x12\x41\n\x12hmac_hash_function\x18\x03 \x01(\x0e\x32 .message.Header.HmacHashFunction:\x03MD5\x12\x13\n\x0bhmac_signer\x18\x04 \x01(\t\x12\x18\n\x10hmac_key_version\x18\x05 \x01(\r\x12\x0c\n\x04hmac\x18\x06 \x01(\x0c\"%\n\x10HmacHashFunction\x12\x07\n\x03MD5\x10\x00\x12\x08\n\x04SHA1\x10\x01\"\xa2\x02\n\x05\x46ield\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x34\n\nvalue_type\x18\x02 \x01(\x0e\x32\x18.message.Field.ValueType:\x06STRING\x12\x16\n\x0erepresentation\x18\x03 \x01(\t\x12\x14\n\x0cvalue_string\x18\x04 \x03(\t\x12\x13\n\x0bvalue_bytes\x18\x05 \x03(\x0c\x12\x19\n\rvalue_integer\x18\x06 \x03(\x03\x42\x02\x10\x01\x12\x18\n\x0cvalue_double\x18\x07 \x03(\x01\x42\x02\x10\x01\x12\x16\n\nvalue_bool\x18\x08 \x03(\x08\x42\x02\x10\x01\"E\n\tValueType\x12\n\n\x06STRING\x10\x00\x12\t\n\x05\x42YTES\x10\x01\x12\x0b\n\x07INTEGER\x10\x02\x12\n\n\x06\x44OUBLE\x10\x03\x12\x08\n\x04\x42OOL\x10\x04\"\xbf\x01\n\x07Message\x12\x0c\n\x04uuid\x18\x01 \x02(\x0c\x12\x11\n\ttimestamp\x18\x02 \x02(\x03\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0e\n\x06logger\x18\x04 \x01(\t\x12\x10\n\x08severity\x18\x05 \x01(\x05\x12\x0f\n\x07payload\x18\x06 \x01(\t\x12\x13\n\x0b\x65nv_version\x18\x07 \x01(\t\x12\x0b\n\x03pid\x18\x08 \x01(\x05\x12\x10\n\x08hostname\x18\t \x01(\t\x12\x1e\n\x06\x66ields\x18\n \x03(\x0b\x32\x0e.message.Field')
+  serialized_pb='\n\rmessage.proto\x12\x07message\"\xc7\x01\n\x06Header\x12\x16\n\x0emessage_length\x18\x01 \x02(\r\x12\x41\n\x12hmac_hash_function\x18\x03 \x01(\x0e\x32 .message.Header.HmacHashFunction:\x03MD5\x12\x13\n\x0bhmac_signer\x18\x04 \x01(\t\x12\x18\n\x10hmac_key_version\x18\x05 \x01(\r\x12\x0c\n\x04hmac\x18\x06 \x01(\x0c\"%\n\x10HmacHashFunction\x12\x07\n\x03MD5\x10\x00\x12\x08\n\x04SHA1\x10\x01\"\xa2\x02\n\x05\x46ield\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x34\n\nvalue_type\x18\x02 \x01(\x0e\x32\x18.message.Field.ValueType:\x06STRING\x12\x16\n\x0erepresentation\x18\x03 \x01(\t\x12\x14\n\x0cvalue_string\x18\x04 \x03(\t\x12\x13\n\x0bvalue_bytes\x18\x05 \x03(\x0c\x12\x19\n\rvalue_integer\x18\x06 \x03(\x03\x42\x02\x10\x01\x12\x18\n\x0cvalue_double\x18\x07 \x03(\x01\x42\x02\x10\x01\x12\x16\n\nvalue_bool\x18\x08 \x03(\x08\x42\x02\x10\x01\"E\n\tValueType\x12\n\n\x06STRING\x10\x00\x12\t\n\x05\x42YTES\x10\x01\x12\x0b\n\x07INTEGER\x10\x02\x12\n\n\x06\x44OUBLE\x10\x03\x12\x08\n\x04\x42OOL\x10\x04\"\xc2\x01\n\x07Message\x12\x0c\n\x04uuid\x18\x01 \x02(\x0c\x12\x11\n\ttimestamp\x18\x02 \x02(\x03\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0e\n\x06logger\x18\x04 \x01(\t\x12\x13\n\x08severity\x18\x05 \x01(\x05:\x01\x37\x12\x0f\n\x07payload\x18\x06 \x01(\t\x12\x13\n\x0b\x65nv_version\x18\x07 \x01(\t\x12\x0b\n\x03pid\x18\x08 \x01(\x05\x12\x10\n\x08hostname\x18\t \x01(\t\x12\x1e\n\x06\x66ields\x18\n \x03(\x0b\x32\x0e.message.Field')
 
 
 
@@ -243,7 +243,7 @@ _MESSAGE = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='severity', full_name='message.Message.severity', index=4,
       number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=True, default_value=7,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -292,7 +292,7 @@ _MESSAGE = descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=522,
-  serialized_end=713,
+  serialized_end=716,
 )
 
 _HEADER.fields_by_name['hmac_hash_function'].enum_type = _HEADER_HMACHASHFUNCTION
@@ -307,19 +307,19 @@ DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
 class Header(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _HEADER
-
+  
   # @@protoc_insertion_point(class_scope:message.Header)
 
 class Field(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _FIELD
-
+  
   # @@protoc_insertion_point(class_scope:message.Field)
 
 class Message(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _MESSAGE
-
+  
   # @@protoc_insertion_point(class_scope:message.Message)
 
 # @@protoc_insertion_point(module_scope)

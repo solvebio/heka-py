@@ -84,7 +84,7 @@ class BaseEncoder(object):
         if header_size > MAX_HEADER_SIZE:
             raise InvalidMessage("Header is too long")
 
-        pack_fmt = "!bb%dsb%ds" % (header_size, len(payload))
+        pack_fmt = '!bb%dsb%ds' % (header_size, len(payload))
         byte_data = pack(pack_fmt,
                          RECORD_SEPARATOR,
                          header_size,
