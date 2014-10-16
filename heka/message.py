@@ -1,7 +1,7 @@
 import os
 import socket
 import time
-import uuid
+import uuid as uuidlib
 import collections
 
 
@@ -104,6 +104,7 @@ class Message(object):
         pid=None,
         hostname=None,
         timestamp=None,
+        uuid=None,
     ):
         if pid is None:
             pid = os.getpid()
@@ -130,7 +131,14 @@ class Message(object):
 
         _flatten_fields(protobuf_message, fields)
 
-        protobuf_message.uuid = uuid.uuid5(uuid.NAMESPACE_OID, str(protobuf_message)).bytes
+        # Calculate UUID if needed and add to protobuf
+        if uuid is None:
+            uuid = uuidlib.uuid5(
+                uuidlib.NAMESPACE_OID,
+                str(protobuf_message)
+            ).bytes
+
+        protobuf_message.uuid = uuid
 
         self.protobuf_message = protobuf_message
 
