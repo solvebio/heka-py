@@ -78,7 +78,7 @@ def _flatten_fields(msg, field_map, prefix=None):
             field_list.append(v)
 
 
-FIELD_TYPE_TO_ATTRIBUTE = {
+_FIELD_TYPE_TO_ATTRIBUTE = {
     Field.INTEGER: 'value_integer',
     Field.DOUBLE: 'value_double',
     Field.BOOL: 'value_bool',
@@ -87,7 +87,7 @@ FIELD_TYPE_TO_ATTRIBUTE = {
 
 
 def _get_value_from_field(field):
-    attr_name = FIELD_TYPE_TO_ATTRIBUTE[field.value_type]
+    attr_name = _FIELD_TYPE_TO_ATTRIBUTE[field.value_type]
     return getattr(field, attr_name)
 
 
