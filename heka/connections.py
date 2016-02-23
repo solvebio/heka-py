@@ -6,7 +6,7 @@ from . import framing
 
 class HekaConnection(object):
 
-    DEFAULT_ADDRESS = 'localhost:{}'.format(defaults.DEFAULT_PORT)
+    DEFAULT_ADDRESS = 'localhost:{0}'.format(defaults.DEFAULT_PORT)
     SOCKET_FAMILY = socket.SOCK_DGRAM
 
     def __init__(self, address=DEFAULT_ADDRESS, signer_config=None, lazy=False):

@@ -24,7 +24,7 @@ def frame(payload, signer_config=None):
 
         # Only allow type signing.SignerConfig.
         if not isinstance(signer_config, signing.SignerConfig):
-            raise RuntimeError('signer must be an instance of heka.signing.SignerConfig: got {}'.format(signer_config))
+            raise RuntimeError('signer must be an instance of heka.signing.SignerConfig: got {0}'.format(signer_config))
 
         signing.sign_header(header, payload, signer_config)
 
@@ -36,7 +36,7 @@ def frame(payload, signer_config=None):
         raise RuntimeError("Header is too long")
 
     return struct.pack(
-        '!bb{}sb{}s'.format(header_length, payload_length),
+        '!bb{0}sb{1}s'.format(header_length, payload_length),
         RECORD_SEPARATOR,
         header_length,
         header_data,
