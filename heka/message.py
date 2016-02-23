@@ -224,7 +224,7 @@ class Message(object):
 
     @property
     def fields(self):
-        return {
-            field.name: _get_value_from_field(field)
-            for field in self.protobuf_message.fields
-        }
+        fields = {}
+        for field in self.protobuf_message.fields:
+            fields[field.name] = _get_value_from_field(field)
+        return fields

@@ -30,7 +30,7 @@ class PyTest(TestCommand):
 
 setup(
     name='heka-py',
-    version='1.0.0',
+    version='1.0.1',
     description="Metrics Logging",
     long_description=README,
     classifiers=[
